@@ -7,7 +7,7 @@ import javax.annotation.processing.Generated;
 @Entity(name ="answers")
 public class Answer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
     private boolean isCorrect;
@@ -50,5 +50,13 @@ public class Answer {
 
     public void setCorrect(boolean correct) {
         isCorrect = correct;
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

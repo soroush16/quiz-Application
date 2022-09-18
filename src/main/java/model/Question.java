@@ -4,15 +4,16 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name =" Question")
+@Entity(name ="Question")
 public class Question {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
     private String description;
     @Enumerated(EnumType.STRING)
     @Column(name ="topic")
     private Topic topic;
+    private int difficulty;
     @OneToMany
     @JoinColumn(name = "Question_id")
     private List<Answer> answer;
@@ -28,9 +29,10 @@ public class Question {
         this.answer = answer;
     }
 
-    public Question(String description, Topic topic, List<Answer> answer) {
+    public Question(String description, Topic topic,int difficulty, List<Answer> answer) {
         this.description = description;
         this.topic = topic;
+        this.difficulty = difficulty;
         this.answer = answer;
     }
 
@@ -44,6 +46,10 @@ public class Question {
 
     public Topic getTopic() {
         return topic;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
     }
 
     public List<Answer> getAnswer() {
@@ -62,6 +68,10 @@ public class Question {
         this.topic = topic;
     }
 
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public void setAnswer(List<Answer> answer) {
         this.answer = answer;
     }
@@ -69,8 +79,9 @@ public class Question {
     @Override
     public String toString() {
         return  questionId +
-                  description + '\'' +
-                ", topic=" + topic +
+                  description +" ?"+ '\'' +
+                ", topic= " + topic +
+                ", difficulty: "+difficulty+ " /5"+
                 ", answer=" + answer
                 ;
     }
